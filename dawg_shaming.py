@@ -15,7 +15,7 @@ class DawgShaming(MPServerAPI):
 
 	def play_main_menu(self):
 		_ = self.gather(os.path.join("prompts", "BestFriendForeverMenu.wav"), release_keys=ANY_KEY)
-		self.play(os.path.join("prompts", ENDINGS[randint(0,1)]))
+		self.say(os.path.join("prompts", ENDINGS[randint(0,1)]), interruptable=False)
 		sleep(10)
 
 		return self.play_main_menu()
