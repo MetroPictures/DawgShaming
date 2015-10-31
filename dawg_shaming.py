@@ -4,9 +4,9 @@ from sys import argv, exit
 from time import sleep
 
 from core.api import MPServerAPI
+from core.vars import DEFAULT_TELEPHONE_GPIO
 
 ENDINGS = ["RandomEndMan.wav", "RandomEndScream.wav"]
-ANY_KEY = [3] #i think any key just routes here
 
 class DawgShaming(MPServerAPI):
 	def __init__(self):
@@ -14,9 +14,11 @@ class DawgShaming(MPServerAPI):
 		logging.basicConfig(filename=self.conf['d_files']['module']['log'], level=logging.DEBUG)
 
 	def play_main_menu(self):
-		_ = self.gather(os.path.join("prompts", "BestFriendForeverMenu.wav"), release_keys=ANY_KEY)
-		self.say(os.path.join("prompts", ENDINGS[randint(0,1)]), interruptable=False)
-		sleep(10)
+		choice = self.prompt(os.path.join("prompts", "BestFriendForeverMenu.wav"), release_keys=DEFAULT_TELEPHONE_GPIO)
+		sleep(1)
+
+		if self.say(os.path.join("prompts", ENDINGS[randint(0,1)]), interruptable=False):
+			sleep(10)
 
 		return self.play_main_menu()
 
